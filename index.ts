@@ -9,16 +9,19 @@ function getRandomInt(min: number, max: number) {
 Bun.serve({
   // `routes` requires Bun v1.2.3+
   routes: {
+
+
     "/api/status": new Response("OK"),
 
     // Хто я? (трекер, варіант №4)
     "/api/whoami": (req: Request, server: Server) => {
+    
       return new Response(`Your IP is ${server.requestIP(req)?.address}\n`);
     },
 
     // Кубик (рандомайзер, варіант №2)
     "/api/d6": () => {
-        let dice = getRandomInt(1, 6)
+        let dice = getRandomInt(1, 7)
         return new Response(`The dice rolled a number ${dice}\n`)
     },
 
