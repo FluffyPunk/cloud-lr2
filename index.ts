@@ -16,7 +16,7 @@ Bun.serve({
     // Хто я? (трекер, варіант №4)
     "/api/whoami": (req: Request) => {
     
-      return new Response(`Your IP is ${req.headers.get("X-Forwarded-For")}\n`);
+      return new Response(`Your IP is ${req.headers.get("X-Forwarded-For")?.split(",")[0]}\n`);
     },
 
     // Кубик (рандомайзер, варіант №2)
