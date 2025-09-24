@@ -1,4 +1,5 @@
 import type { Server } from "bun";
+import homepage from "./index.html";
 
 function getRandomInt(min: number, max: number) {
   const minCeiled = Math.ceil(min);
@@ -9,7 +10,7 @@ function getRandomInt(min: number, max: number) {
 Bun.serve({
   // `routes` requires Bun v1.2.3+
   routes: {
-
+    "/": homepage,
 
     "/api/status": new Response("OK"),
 

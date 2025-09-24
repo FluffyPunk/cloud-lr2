@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Стартова сторінка</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #555;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #4a90e2;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #357abd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Дані з API</h1>
+  <div class="container">
+    <div class="card"><h2>Поле 1</h2><p id="field1">Завантаження...</p></div>
+    <div class="card"><h2>Поле 2</h2><p id="field2">Завантаження...</p></div>
+    <div class="card"><h2>Поле 3</h2><p id="field3">Завантаження...</p></div>
+    <div class="card"><h2>Поле 4</h2><p id="field4">Завантаження...</p></div>
+    <div class="card"><h2>Поле 5</h2><p id="field5">Завантаження...</p></div>
+  </div>
+
+  <button onclick="loadData()">Оновити дані</button>
+
+  <script>
+    async function loadData() {
+      try {
+        // Заміни ці шляхи на свої API з index.ts
+        const endpoints = [
+          "/api/today",
+          "/api/d6",
+          "/api/now",
+          "/api/whoami",
+          "/api/weekend",
+          ];
+
+        const results = await Promise.all(endpoints.map(url =>
+          fetch(url).then(r => r.text())
+        ));
+
+        // Запис у поля
+        document.getElementById("field1").innerText = results[0];
+        document.getElementById("field2").innerText = results[1];
+        document.getElementById("field3").innerText = results[2];
+        document.getElementById("field4").innerText = results[3];
+        document.getElementById("field5").innerText = results[4];
+      } catch (err) {
+        console.error("Помилка завантаження:", err);
+      }
+    }
+
+    // Автооновлення раз на 10 сек
+    setInterval(loadData, 10000);
+
+    // Початкове завантаження
+    loadData();
+  </script>
+</body>
+</html>
