@@ -1,6 +1,5 @@
+import { expect, test } from "bun:test";
 import homepage from "./index.html";
-
-import { test, expect } from "bun:test";
 
 function getRandomInt(min: number, max: number) {
   const minCeiled = Math.ceil(min);
