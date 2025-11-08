@@ -1,4 +1,3 @@
-import type { Server } from "bun";
 import homepage from "./index.html";
 
 function getRandomInt(min: number, max: number) {
@@ -16,36 +15,35 @@ Bun.serve({
 
     // Хто я? (трекер, варіант №4)
     "/api/whoami": (req: Request) => {
-    
       return new Response(`Your IP is ${req.headers.get("X-Forwarded-For")?.split(",")[0]}\n`);
     },
 
     // Кубик (рандомайзер, варіант №2)
     "/api/d6": () => {
-        let dice = getRandomInt(1, 7)
-        return new Response(`The dice rolled a number ${dice}\n`)
+      const dice = getRandomInt(1, 7);
+      return new Response(`The dice rolled a number ${dice}\n`);
     },
 
     // Календар (варіант №1)
     "/api/today": () => {
-        let today = new Date()
-        
-        return new Response(`Today is ${today.toDateString()} \n`)
+      const today = new Date();
+
+      return new Response(`Today is ${today.toDateString()} \n`);
     },
 
     // Годинник (варіант №3)
     "/api/now": () => {
-        let today = new Date()
-        
-        return new Response(`The time now is ${today.toTimeString()} \n`)
+      const today = new Date();
+
+      return new Response(`The time now is ${today.toTimeString()} \n`);
     },
 
     // Відлік (варіант №5)
     "/api/weekend": () => {
-        const today = new Date();
-        const weekday = today.getDay();
-        let days = (6 - weekday) % 7;
-        return new Response(`There are ${days === 0 ? 7 : days} days left to Saturday \n`)
+      const today = new Date();
+      const weekday = today.getDay();
+      const days = (6 - weekday) % 7;
+      return new Response(`There are ${days === 0 ? 7 : days} days left to Saturday \n`);
     },
 
     // Wildcard route for all routes that start with "/api/" and aren't otherwise matched
@@ -54,7 +52,7 @@ Bun.serve({
 
   // (optional) fallback for unmatched routes:
   // Required if Bun's version < 1.2.3
-  fetch(req) {
+  fetch() {
     return new Response("Not Found", { status: 404 });
   },
 });
